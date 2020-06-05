@@ -1,0 +1,10 @@
+﻿@page
+@model LockoutModel
+@{
+    ViewData["Title"] = "Locked out";
+}
+
+<header>
+    <h1 class="text-danger">@ViewData["Title"]</h1>
+    <p class="text-danger">Dit account is tijdelijk gedeactiveerd door te veel loginpogingen.<br />Probeer opnieuw binnen 30 minuten.</p>
+</header>
