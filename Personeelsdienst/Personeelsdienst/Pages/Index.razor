@@ -1,8 +1,3 @@
 ﻿@page "/"
 @attribute [Authorize]
-
-@inject NavigationManager Navigation
-
-@code {
-    protected override async Task OnInitializedAsync() => Navigation.NavigateTo("/RoleResolver", true);
-}
+@inherits IndexBase
