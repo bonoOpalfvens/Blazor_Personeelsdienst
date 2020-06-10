@@ -10,15 +10,15 @@ namespace Personeelsdienst.Pages
         {
             if (User.HasClaim(c => c.Type.Equals(ClaimTypes.Role) && c.Value.Equals("admin")))
             {
-                return RedirectToPage("/Admin");
+                return Redirect("/Admin");
             }
             else if (User.HasClaim(c => c.Type.Equals(ClaimTypes.Role) && c.Value.Equals("beheerder")))
             {
-                return RedirectToPage("/Beheerder");
+                return Redirect("/Beheerder");
             }
             else
             {
-                return RedirectToPage("/Entiteit");
+                return Redirect("/Entiteit");
             }
         }
     }
