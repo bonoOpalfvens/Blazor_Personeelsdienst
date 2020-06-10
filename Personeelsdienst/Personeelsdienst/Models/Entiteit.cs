@@ -7,21 +7,26 @@ namespace Personeelsdienst.Models
     public class Entiteit
     {
         #region Fields
-        private string _entiteitsnaam;
+        private string _entiteitsnaam, _email;
         #endregion
 
         #region Properties
         [Key]
         public long Id { get; set; }
+        [Required(ErrorMessage = "Entiteitsnaam is verplicht")]
         [MinLength(1, ErrorMessage = "Entiteitsnaam is verplicht")]
-        public string Entiteitsnaam { get { return _entiteitsnaam; } set { _entiteitsnaam = value.Trim(); } }
+        public string Entiteitsnaam { get { return _entiteitsnaam; } set { _entiteitsnaam = value.Trim().ToLower(); } }
+        [Required(ErrorMessage = "Email is verplicht")]
+        [EmailAddress(ErrorMessage = "Email is verplicht")]
+        public string Email { get { return _email; } set { _email = value.Trim(); } }
         public List<Personeelslid> Personeelsleden { get; set; }
         #endregion
 
         #region Constructors
-        public Entiteit(string entiteitsnaam) : this()
+        public Entiteit(string entiteitsnaam, string email) : this()
         {
             Entiteitsnaam = entiteitsnaam;
+            Email = email;
         }
         private Entiteit() 
         {

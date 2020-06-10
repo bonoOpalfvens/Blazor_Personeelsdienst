@@ -8,18 +8,10 @@ namespace Personeelsdienst.Pages
     {
         public IActionResult OnGet()
         {
-            if (User.HasClaim(c => c.Type.Equals(ClaimTypes.Role) && c.Value.Equals("admin")))
-            {
-                return Redirect("/Admin");
-            }
-            else if (User.HasClaim(c => c.Type.Equals(ClaimTypes.Role) && c.Value.Equals("beheerder")))
-            {
-                return Redirect("/Beheerder");
-            }
-            else
-            {
-                return Redirect("/Entiteit");
-            }
+            if (User.HasClaim(c => c.Type.Equals(ClaimTypes.Role) && c.Value.Equals("admin"))) return Redirect("/Admin");
+            else if (User.HasClaim(c => c.Type.Equals(ClaimTypes.Role) && c.Value.Equals("beheerder"))) return Redirect("/Beheerder");
+            else if (User.HasClaim(c => c.Type.Equals(ClaimTypes.Role) && c.Value.Equals("entiteit"))) return Redirect("/Entiteit");
+            else return Redirect("/Areas/Identity/LogIn");
         }
     }
 }

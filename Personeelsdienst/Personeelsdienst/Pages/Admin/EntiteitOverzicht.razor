@@ -1,0 +1,25 @@
+﻿@page "/Admin/Entiteit/Overzicht"
+@attribute [Authorize(Roles = "admin")]
+@inherits EntiteitOverzichtBase
+
+    <div class="row">
+        <h3 class="col-lg-8">Overzicht entiteiten</h3>
+        <span class="col-lg-4">
+            <a style="color: white; float: right;" class="btn btn-primary"><span class="oi oi-plus"/> Entiteit toevoegen</a>
+        </span>
+    </div>
+    <hr />
+    @foreach (Personeelsdienst.Models.Entiteit entiteit in Entiteiten)
+    {
+        <div class="card m-2">
+            <div class="card-body row">
+                <div class="col-11">
+                    <h5>@entiteit.Entiteitsnaam</h5>
+                    login: @entiteit.Email
+                </div>
+                <div class="col-1 btn-group-vertical">
+                    <button type="button" class="btn btn-outline-danger"><span class="oi oi-trash" /></button>
+                </div>
+            </div>
+        </div>
+    }

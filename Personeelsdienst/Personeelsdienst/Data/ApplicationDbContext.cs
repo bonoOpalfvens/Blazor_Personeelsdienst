@@ -10,6 +10,7 @@ namespace Personeelsdienst.Data
         public DbSet<Entiteit> Entiteiten { get; set; }
         public DbSet<Personeelslid> Personeelsleden { get; set; }
         public DbSet<Afwezigheid> Afwezigheden { get; set; }
+        public DbSet<Beheerder> Beheerders { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -19,6 +20,7 @@ namespace Personeelsdienst.Data
             modelBuilder.ApplyConfiguration(new AfwezigheidConfiguration());
             modelBuilder.ApplyConfiguration(new EntiteitConfiguration());
             modelBuilder.ApplyConfiguration(new PersoneelslidConfiguration());
+            modelBuilder.ApplyConfiguration(new BeheerderConfiguration());
         }
     }
 }

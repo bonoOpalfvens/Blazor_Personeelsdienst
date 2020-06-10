@@ -10,6 +10,8 @@ using Personeelsdienst.Areas.Identity;
 using Personeelsdienst.Data;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using Personeelsdienst.Models.IRepositories;
+using Personeelsdienst.Data.Repositories;
 
 namespace Personeelsdienst
 {
@@ -45,6 +47,8 @@ namespace Personeelsdienst
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddScoped<DataInitialiser>();
+            services.AddScoped<IEntiteitRepository, EntiteitRepository>();
+            services.AddScoped<IBeheerderRepository, BeheerderRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataInitialiser dataInitialiser)
@@ -75,7 +79,7 @@ namespace Personeelsdienst
                 endpoints.MapFallbackToPage("/_Host");
             });
 
-            //dataInitialiser.InitialiseData().Wait();
+            dataInitialiser.InitialiseData().Wait();
         }
     }
 }
