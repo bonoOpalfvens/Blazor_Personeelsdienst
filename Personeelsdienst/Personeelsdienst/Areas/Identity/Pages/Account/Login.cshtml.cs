@@ -72,7 +72,7 @@ namespace Personeelsdienst.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return RedirectToPage("/");
+                    return RedirectToPage("/RoleResolver");
                 }
                 if (result.IsLockedOut)
                 {
