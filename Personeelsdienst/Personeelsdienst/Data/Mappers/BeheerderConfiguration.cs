@@ -9,8 +9,6 @@ namespace Personeelsdienst.Data.Mappers
         public void Configure(EntityTypeBuilder<Beheerder> builder)
         {
             builder.ToTable("Beheerders");
-
-            builder.HasMany(b => b.Entiteiten).WithOne();
         }
     }
 }

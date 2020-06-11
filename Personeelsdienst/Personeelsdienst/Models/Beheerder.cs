@@ -15,7 +15,7 @@ namespace Personeelsdienst.Models
         [Required(ErrorMessage = "Email is verplicht")]
         [EmailAddress(ErrorMessage = "Ongeldige email")]
         public string Email { get { return _email; } set { _email = value.Trim().ToLower(); } }
-        public List<Entiteit> Entiteiten { get; set; }
+        public List<EntiteitBeheerder> Entiteiten { get; set; }
         #endregion
 
         #region Constructors
@@ -23,9 +23,9 @@ namespace Personeelsdienst.Models
         {
             Email = email;
         }
-        private Beheerder()
+        public Beheerder()
         {
-            Entiteiten = new List<Entiteit>();
+            Entiteiten = new List<EntiteitBeheerder>();
         }
         #endregion
     }

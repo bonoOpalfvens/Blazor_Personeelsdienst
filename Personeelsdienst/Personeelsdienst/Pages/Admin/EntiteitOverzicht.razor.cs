@@ -8,7 +8,7 @@ namespace Personeelsdienst.Pages.Admin
     public class EntiteitOverzichtBase : ComponentBase
     {
         [Inject]
-        public IEntiteitRepository EntiteitRepository { get; set; }
-        public IList<Entiteit> Entiteiten => EntiteitRepository.GetAll();
+        protected IEntiteitRepository EntiteitRepository { get; set; }
+        protected IList<Entiteit> Entiteiten => EntiteitRepository.GetAll();
     }
 }

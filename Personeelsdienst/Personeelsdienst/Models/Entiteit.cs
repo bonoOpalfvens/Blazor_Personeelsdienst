@@ -15,11 +15,12 @@ namespace Personeelsdienst.Models
         public long Id { get; set; }
         [Required(ErrorMessage = "Entiteitsnaam is verplicht")]
         [MinLength(1, ErrorMessage = "Entiteitsnaam is verplicht")]
-        public string Entiteitsnaam { get { return _entiteitsnaam; } set { _entiteitsnaam = value.Trim().ToLower(); } }
+        public string Entiteitsnaam { get { return _entiteitsnaam; } set { _entiteitsnaam = value.Trim(); } }
         [Required(ErrorMessage = "Email is verplicht")]
         [EmailAddress(ErrorMessage = "Email is verplicht")]
-        public string Email { get { return _email; } set { _email = value.Trim(); } }
+        public string Email { get { return _email; } set { _email = value.Trim().ToLower(); } }
         public List<Personeelslid> Personeelsleden { get; set; }
+        public List<EntiteitBeheerder> Beheerders { get; set; }
         #endregion
 
         #region Constructors

@@ -43,8 +43,8 @@ namespace Personeelsdienst.Data
                 // TestBeheerders
                 Beheerder beheerder1 = new Beheerder("beheerder1@hetleercollectief.be");
                 Beheerder beheerder2 = new Beheerder("beheerder2@hetleercollectief.be");
-                beheerder1.Entiteiten.Add(entiteit1);
-                beheerder1.Entiteiten.Add(entiteit2);
+                beheerder1.Entiteiten.Add(new EntiteitBeheerder { EntiteitId = entiteit1.Id, BeheerderId = beheerder1.Id });
+                beheerder1.Entiteiten.Add(new EntiteitBeheerder { EntiteitId = entiteit2.Id, BeheerderId = beheerder2.Id });
 
                 IdentityUser beheerderUser1 = new IdentityUser { UserName = "beheerder1@hetleercollectief.be", Email = "beheerder1@hetleercollectief.be" };
                 await _userManager.CreateAsync(beheerderUser1, "test");

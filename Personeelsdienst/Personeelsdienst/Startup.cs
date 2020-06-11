@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Personeelsdienst.Models.IRepositories;
 using Personeelsdienst.Data.Repositories;
+using Blazored.Modal;
 
 namespace Personeelsdienst
 {
@@ -42,6 +43,8 @@ namespace Personeelsdienst
                 options.AddPolicy("Beheerder", policy => policy.RequireClaim(ClaimTypes.Role, "beheerder"));
                 options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "admin"));
             });
+
+            services.AddBlazoredModal();
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
@@ -79,7 +82,7 @@ namespace Personeelsdienst
                 endpoints.MapFallbackToPage("/_Host");
             });
 
-            dataInitialiser.InitialiseData().Wait();
+            //dataInitialiser.InitialiseData().Wait();
         }
     }
 }

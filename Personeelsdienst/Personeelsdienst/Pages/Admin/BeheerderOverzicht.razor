@@ -1,13 +1,36 @@
 ﻿@page "/Admin/Beheerder/Overzicht"
+@page "/Admin/Beheerder/Overzicht/{text}"
 @attribute [Authorize(Roles = "admin")]
 @inherits BeheerderOverzichtBase
 
 <div class="row">
-    <h3 class="col-lg-8">Overzicht Beheerders</h3>
+    <h3 class="col-lg-8"><span class="oi oi-people" /> Overzicht Beheerders</h3>
     <span class="col-lg-4">
-        <a style="color: white; float: right;" class="btn btn-primary"><span class="oi oi-plus" /> Beheerder toevoegen</a>
+        <button @onclick='(e => Navigation.NavigateTo("/Admin/Beheerder/Toevoegen"))' style="color: white; float: right;" class="btn btn-primary"><span class="oi oi-plus" /> Beheerder toevoegen</button>
     </span>
 </div>
+@if (!(Text is null))
+{
+    if (Text.Trim().ToLower().Equals("create"))
+    {
+        <div class="alert alert-success">
+            Beheerder succesvol aangemaakt.
+        </div>
+    }
+    else if (Text.Trim().ToLower().Equals("edit"))
+    {
+        <div class="alert alert-success">
+            Beheerder succesvol bewerkt.
+        </div>
+    }
+    else if (Text.Trim().ToLower().Equals("delete"))
+    {
+        <div class="alert alert-danger">
+            Beheerder succesvol verwijderd.
+        </div>
+    }
+}
+
 <hr />
 @foreach (Personeelsdienst.Models.Beheerder beheerder in Beheerders)
 {
@@ -16,14 +39,15 @@
             <div class="col-11">
                 <h5>@beheerder.Email</h5>
                 <ul>
-                    @foreach(Personeelsdienst.Models.Entiteit entiteit in beheerder.Entiteiten)
+                    @foreach (Personeelsdienst.Models.Entiteit entiteit in beheerder.Entiteiten.Select(e => e.Entiteit))
                     {
                         <li>@entiteit.Entiteitsnaam</li>
                     }
                 </ul>
             </div>
-            <div class="col-1 btn-group-vertical">
-                <button type="button" class="btn btn-outline-danger"><span class="oi oi-trash" /></button>
+            <div class="col-1 btn-group-vertical" style="height: 50px;">
+                <button @onclick='(e => Navigation.NavigateTo($"/Admin/Beheerder/Bewerken/{beheerder.Id}"))' type="button" class="btn btn-outline-secondary"><span class="oi oi-pencil" /></button>
+                <button @onclick='(e => VerwijderBeheerder(e, beheerder.Id))' type="button" class="btn btn-outline-danger"><span class="oi oi-trash" /></button>
             </div>
         </div>
     </div>
