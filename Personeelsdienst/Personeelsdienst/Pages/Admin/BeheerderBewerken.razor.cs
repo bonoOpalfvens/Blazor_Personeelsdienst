@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Identity;
 using Personeelsdienst.Models;
 using Personeelsdienst.Models.IRepositories;
-using Personeelsdienst.Shared;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,6 +18,8 @@ namespace Personeelsdienst.Pages.Admin
         protected IEntiteitRepository EntiteitRepository { get; set; }
         [Inject]
         protected IBeheerderRepository BeheerderRepository { get; set; }
+        [Inject]
+        protected UserManager<IdentityUser> UserManager { get; set; }
         [Inject]
         protected NavigationManager Navigation { get; set; }
         [Inject]
@@ -67,7 +69,7 @@ namespace Personeelsdienst.Pages.Admin
                 Navigation.NavigateTo("/Admin/Beheerder/Overzicht/Delete");
             }
             */
-            BeheerderRepository.Verwijder(_beheerder.Id);
+            BeheerderRepository.Verwijder(long.Parse(Id));
             Navigation.NavigateTo("/Admin/Beheerder/Overzicht/Delete");
         }
         #endregion

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Personeelsdienst.Models;
 using Personeelsdienst.Models.IRepositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,8 +10,8 @@ namespace Personeelsdienst.Data.Repositories
     public class EntiteitRepository : IEntiteitRepository
     {
         #region Setup
-        private readonly ApplicationDbContext _context;
-        private readonly DbSet<Entiteit> _entiteiten;
+        private ApplicationDbContext _context;
+        private DbSet<Entiteit> _entiteiten;
 
         public EntiteitRepository(ApplicationDbContext context)
         {
@@ -28,6 +29,21 @@ namespace Personeelsdienst.Data.Repositories
 
         public void SaveChanges() => _context.SaveChanges();
 
-        public void VoegToe(Entiteit entiteit) => _entiteiten.Add(entiteit);
+        public void VoegToe(Entiteit entiteit)
+        {
+            if (_entiteiten.Any(b => b.Email.ToLower().Equals(entiteit.Email))) throw new ArgumentException("Email van entiteit moet uniek zijn.");
+            _context.Entiteiten.Add(entiteit);
+            _context.SaveChanges();
+        }
+
+        public void Verwijder(long id)
+        {
+            Entiteit entiteit = Entiteiten.FirstOrDefault(e => e.Id.Equals(id));
+            if (!(entiteit is null))
+            {
+                _context.Entiteiten.Remove(entiteit);
+                _context.SaveChanges();
+            }
+        }
     }
 }

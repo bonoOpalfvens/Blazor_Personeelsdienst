@@ -1,7 +1,7 @@
-﻿using Personeelsdienst.Data.Mappers;
-using Personeelsdienst.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Personeelsdienst.Data.Mappers;
+using Personeelsdienst.Models;
 
 namespace Personeelsdienst.Data
 {

@@ -29,7 +29,7 @@ namespace Personeelsdienst.Models
             Entiteitsnaam = entiteitsnaam;
             Email = email;
         }
-        private Entiteit() 
+        private Entiteit()
         {
             Personeelsleden = new List<Personeelslid>();
         }

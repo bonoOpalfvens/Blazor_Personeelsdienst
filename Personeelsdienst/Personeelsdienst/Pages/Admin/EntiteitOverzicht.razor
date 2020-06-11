@@ -1,14 +1,30 @@
 ﻿@page "/Admin"
 @page "/Admin/Entiteit/Overzicht"
+@page "/Admin/Entiteit/Overzicht/{text}"
 @attribute [Authorize(Roles = "admin")]
 @inherits EntiteitOverzichtBase
 
 <div class="row">
-    <h3 class="col-lg-8">Overzicht entiteiten</h3>
+    <h3 class="col-lg-8"><span class="oi oi-briefcase"/> Overzicht entiteiten</h3>
     <span class="col-lg-4">
-        <a style="color: white; float: right;" class="btn btn-primary"><span class="oi oi-plus" /> Entiteit toevoegen</a>
+        <button @onclick='(e => Navigation.NavigateTo("/Admin/Entiteit/Toevoegen"))' style="color: white; float: right;" class="btn btn-primary"><span class="oi oi-plus" /> Entiteit toevoegen</button>
     </span>
 </div>
+@if (!(Text is null))
+{
+    if (Text.Trim().ToLower().Equals("create"))
+    {
+        <div class="alert alert-success">
+            Entiteit succesvol aangemaakt.
+        </div>
+    }
+    else if (Text.Trim().ToLower().Equals("delete"))
+    {
+        <div class="alert alert-danger">
+            Entiteit succesvol verwijderd.
+        </div>
+    }
+}
 <hr />
 @foreach (Personeelsdienst.Models.Entiteit entiteit in Entiteiten)
 {
@@ -19,8 +35,7 @@
                 <u>login:</u> @entiteit.Email
             </div>
             <div class="col-1 btn-group-vertical" style="height: 50px;">
-                <button type="button" class="btn btn-outline-secondary"><span class="oi oi-pencil" /></button>
-                <button type="button" class="btn btn-outline-danger"><span class="oi oi-trash" /></button>
+                <button @onclick="(e => VerwijderEntiteit(e, entiteit.Id))" type="button" class="btn btn-outline-danger"><span class="oi oi-trash" /></button>
             </div>
         </div>
     </div>

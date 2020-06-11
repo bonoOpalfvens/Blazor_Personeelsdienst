@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 [assembly: HostingStartup(typeof(Personeelsdienst.Areas.Identity.IdentityHostingStartup))]
 namespace Personeelsdienst.Areas.Identity
@@ -10,7 +10,8 @@ namespace Personeelsdienst.Areas.Identity
     {
         public void Configure(IWebHostBuilder builder)
         {
-            builder.ConfigureServices((context, services) => {
+            builder.ConfigureServices((context, services) =>
+            {
                 services.Configure<IdentityOptions>(options =>
                 {
                     // password requirements

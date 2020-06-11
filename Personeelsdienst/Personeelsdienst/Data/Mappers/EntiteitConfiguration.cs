@@ -1,6 +1,6 @@
-﻿using Personeelsdienst.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Personeelsdienst.Models;
 
 namespace Personeelsdienst.Data.Mappers
 {

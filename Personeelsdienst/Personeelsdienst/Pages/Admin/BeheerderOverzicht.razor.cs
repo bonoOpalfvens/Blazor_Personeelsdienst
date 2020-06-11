@@ -1,9 +1,9 @@
 ﻿using Blazored.Modal.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Identity;
 using Personeelsdienst.Models;
 using Personeelsdienst.Models.IRepositories;
-using Personeelsdienst.Shared;
 using System.Collections.Generic;
 
 namespace Personeelsdienst.Pages.Admin
@@ -14,6 +14,8 @@ namespace Personeelsdienst.Pages.Admin
         public string Text { get; set; }
         [Inject]
         public IBeheerderRepository BeheerderRepository { get; set; }
+        [Inject]
+        public UserManager<IdentityUser> UserManager { get; set; }
         [Inject]
         public NavigationManager Navigation { get; set; }
         [Inject]

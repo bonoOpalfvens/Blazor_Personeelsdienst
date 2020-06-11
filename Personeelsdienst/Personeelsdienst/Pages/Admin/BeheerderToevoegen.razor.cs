@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Personeelsdienst.Models;
 using Personeelsdienst.Models.IRepositories;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 
 namespace Personeelsdienst.Pages.Admin
 {
@@ -43,9 +43,15 @@ namespace Personeelsdienst.Pages.Admin
             if (UserManager.Users.FirstOrDefault(u => u.Email.ToLower().Equals(_beheerderFormModel.Email)) is null)
             {
                 _userAlreadyExists = false;
+
                 Beheerder beheerder = new Beheerder(_beheerderFormModel.Email);
                 beheerder.Entiteiten.AddRange(_beheerderFormModel.Entiteiten.Where(e => e.BoolProperty.Equals(true)).Select(e => new EntiteitBeheerder { EntiteitId = e.Entiteit.Id, Beheerder = beheerder }));
-                await BeheerderRepository.VoegToe(beheerder, _beheerderFormModel.Password);
+                BeheerderRepository.VoegToe(beheerder);
+
+                IdentityUser beheerderUser = new IdentityUser { UserName = beheerder.Email, Email = beheerder.Email };
+                await UserManager.CreateAsync(beheerderUser);
+                await UserManager.AddClaimAsync(beheerderUser, new Claim(ClaimTypes.Role, "beheerder"));
+
                 Navigation.NavigateTo("/Admin/Beheerder/Overzicht/Create");
             }
             else

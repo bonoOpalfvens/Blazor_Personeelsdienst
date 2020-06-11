@@ -19,7 +19,7 @@ namespace Personeelsdienst.Data
         public async Task InitialiseData()
         {
             _context.Database.EnsureDeleted();
-            if(_context.Database.EnsureCreated())
+            if (_context.Database.EnsureCreated())
             {
                 // Gebruikers
                 // Admin
