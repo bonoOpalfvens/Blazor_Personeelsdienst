@@ -23,7 +23,7 @@ namespace Personeelsdienst.Data.Repositories
 
         public Afwezigheid GetById(long id) => Afwezigheden.FirstOrDefault(a => a.Id.Equals(id));
 
-        public Afwezigheid GetByEntiteit(long id) => Afwezigheden.FirstOrDefault(a => a.Personeelslid.Entiteit.Equals(id));
+        public IList<Afwezigheid> GetByEntiteit(long id) => Afwezigheden.Where(a => a.Personeelslid.Entiteit.Id.Equals(id)).ToList();
 
         public void SaveChanges() => _context.SaveChanges();
 

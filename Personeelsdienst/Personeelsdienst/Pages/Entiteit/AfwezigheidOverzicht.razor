@@ -1,0 +1,91 @@
+﻿@page "/Entiteit/"
+@page "/Entiteit/Afwezigheid/Overzicht"
+@page "/Entiteit/Afwezigheid/Overzicht/{text}"
+@attribute [Authorize(Roles = "entiteit")]
+@inherits AfwezigheidOverzichtBase
+
+<div class="row">
+    <h3 class="col-lg-8"><span class="oi oi-list" /> Overzicht Afwezigheden - @_entiteit.Entiteitsnaam</h3>
+    <span class="col-lg-4">
+        <button @onclick='(e => Navigation.NavigateTo("/Entiteit/Afwezigheid/Toevoegen"))' style="color: white; float: right;" class="btn btn-primary"><span class="oi oi-document" /> Afwezigheid toevoegen</button>
+    </span>
+</div>
+@if (!(Text is null))
+{
+    if (Text.Trim().ToLower().Equals("create"))
+    {
+        <div class="alert alert-success">
+            Afwezigheid succesvol aangemaakt.
+        </div>
+    }
+    else if (Text.Trim().ToLower().Equals("edit"))
+    {
+        <div class="alert alert-success">
+            Afwezigheid succesvol bewerkt.
+        </div>
+    }
+    else if (Text.Trim().ToLower().Equals("delete"))
+    {
+        <div class="alert alert-danger">
+            Afwezigheid succesvol verwijderd.
+        </div>
+    }
+}
+<hr />
+@foreach (Personeelsdienst.Models.Afwezigheid afwezigheid in Afwezigheden.OrderByDescending(a => a.BeginDatum).ThenByDescending(a => a.EindDatum).ThenBy(a => a.Verwerkt).ThenBy(a => a.BewijsOk))
+{
+    if (afwezigheid.Verwerkt)
+    {
+        if (afwezigheid.BewijsOk)
+        {
+            <div class="card text-white bg-success m-2">
+                <div class="card-body row">
+                    <div class="col-11">
+                        <h5>@afwezigheid.Personeelslid.Naam</h5>
+                        <u>Periode:</u> @afwezigheid.BeginDatum.ToShortDateString() - @(afwezigheid.EindDatum.HasValue? afwezigheid.EindDatum.Value.ToShortDateString() : "Onbepaalde duur")<br />
+                        <u>Reden:</u> @afwezigheid.RedenAfwezigheid<br />
+                        <u>Status:</u> Verwerkt - Bewijs OK
+                    </div>
+                    <div class="col-1 btn-group-vertical">
+                        <button @onclick='(e => Navigation.NavigateTo($"/Entiteit/Afwezigheid/Bewerken/{afwezigheid.Id}"))' type="button" class="btn btn-outline-light"><span class="oi oi-pencil" /></button>
+                        <button @onclick="(e => VerwijderAfwezigheid(e, afwezigheid.Id))" type="button" class="btn btn-outline-light"><span class="oi oi-trash" /></button>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card text-white bg-danger m-2">
+                <div class="card-body row">
+                    <div class="col-11">
+                        <h5>@afwezigheid.Personeelslid.Naam</h5>
+                        <u>Periode:</u> @afwezigheid.BeginDatum.ToShortDateString() - @(afwezigheid.EindDatum.HasValue? afwezigheid.EindDatum.Value.ToShortDateString() : "Onbepaalde duur")<br />
+                        <u>Reden:</u> @afwezigheid.RedenAfwezigheid<br />
+                        <u>Status:</u> Verwerkt - Bewijs niet OK
+                    </div>
+                    <div class="col-1 btn-group-vertical">
+                        <button @onclick='(e => Navigation.NavigateTo($"/Entiteit/Afwezigheid/Bewerken/{afwezigheid.Id}"))' type="button" class="btn btn-outline-light"><span class="oi oi-pencil" /></button>
+                        <button @onclick="(e => VerwijderAfwezigheid(e, afwezigheid.Id))" type="button" class="btn btn-outline-light"><span class="oi oi-trash" /></button>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="card bg-light m-2">
+            <div class="card-body row">
+                <div class="col-11">
+                    <h5>@afwezigheid.Personeelslid.Naam</h5>
+                    <u>Periode:</u> @afwezigheid.BeginDatum.ToShortDateString() - @(afwezigheid.EindDatum.HasValue? afwezigheid.EindDatum.Value.ToShortDateString() : "Onbepaalde duur")<br />
+                    <u>Reden:</u> @afwezigheid.RedenAfwezigheid<br />
+                    <u>Status:</u> In behandeling
+                </div>
+                <div class="col-1 btn-group-vertical">
+                    <button @onclick='(e => Navigation.NavigateTo($"/Entiteit/Afwezigheid/Bewerken/{afwezigheid.Id}"))' type="button" class="btn btn-outline-secondary"><span class="oi oi-pencil" /></button>
+                    <button @onclick="(e => VerwijderAfwezigheid(e, afwezigheid.Id))" type="button" class="btn btn-outline-danger"><span class="oi oi-trash" /></button>
+                </div>
+            </div>
+        </div>
+    }
+}

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Personeelsdienst.Models;
 using Personeelsdienst.Models.IRepositories;
+using Personeelsdienst.Shared;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -57,20 +58,16 @@ namespace Personeelsdienst.Pages.Admin
         {
             _beheerderFormModel.Entiteiten.First(e => e.Entiteit.Equals(entiteit)).BoolProperty = false;
         }
-        protected void VerwijderBeheerder(MouseEventArgs e)
+        protected async void VerwijderBeheerder(MouseEventArgs e)
         {
-            /*
             var confirmModal = Modal.Show<ConfirmDelete>("Beheerder verwijderen");
-            var result = confirmModal.Result;
+            var result = await confirmModal.Result;
 
-            if (!result.Result.Cancelled)
+            if (!result.Cancelled)
             {
                 BeheerderRepository.Verwijder(_beheerder.Id);
                 Navigation.NavigateTo("/Admin/Beheerder/Overzicht/Delete");
             }
-            */
-            BeheerderRepository.Verwijder(long.Parse(Id));
-            Navigation.NavigateTo("/Admin/Beheerder/Overzicht/Delete");
         }
         #endregion
 

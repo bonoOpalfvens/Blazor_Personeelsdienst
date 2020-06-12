@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazored.Modal.Services;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Personeelsdienst.Models.IRepositories;
+using Personeelsdienst.Shared;
 using System.Collections.Generic;
 
 namespace Personeelsdienst.Pages.Admin
@@ -15,23 +17,21 @@ namespace Personeelsdienst.Pages.Admin
         [Inject]
         protected UserManager<IdentityUser> UserManager { get; set; }
         [Inject]
+        public IModalService Modal { get; set; }
+        [Inject]
         public NavigationManager Navigation { get; set; }
         protected IList<Models.Entiteit> Entiteiten => EntiteitRepository.GetAll();
 
-        protected void VerwijderEntiteit(MouseEventArgs e, long id)
+        protected async void VerwijderEntiteit(MouseEventArgs e, long id)
         {
-            /*
-            var confirmModal = Modal.Show<ConfirmDelete>("Beheerder verwijderen");
-            var result = confirmModal.Result;
+            var confirmModal = Modal.Show<ConfirmDelete>("Entiteit verwijderen");
+            var result = await confirmModal.Result;
 
-            if (!result.Result.Cancelled)
+            if (!result.Cancelled)
             {
-                BeheerderRepository.Verwijder(id);
-                Navigation.NavigateTo("/Admin/Beheerder/Overzicht/Delete");
+                EntiteitRepository.Verwijder(id);
+                Navigation.NavigateTo("/Admin/Entiteit/Overzicht/Delete");
             }
-            */
-            EntiteitRepository.Verwijder(id);
-            Navigation.NavigateTo("/Admin/Entiteit/Overzicht/Delete");
         }
     }
 }

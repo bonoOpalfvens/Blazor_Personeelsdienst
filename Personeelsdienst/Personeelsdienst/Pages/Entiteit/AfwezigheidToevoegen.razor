@@ -1,0 +1,55 @@
+﻿@page "/Entiteit/Afwezigheid/Toevoegen"
+@attribute [Authorize(Roles = "entiteit")]
+@inherits AfwezigheidToevoegenBase
+
+<h3><span class="oi oi-document" /> Afwezigheid toevoegen - @_entiteit.Entiteitsnaam</h3>
+<hr />
+<EditForm EditContext="_editContext" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label for="Personeelslid">Personeelslid</label>
+        <InputSelect @bind-Value="_afwezigheidFormModel.Personeelslid" class="form-control" id="Personeelslid">
+            @foreach (Personeelsdienst.Models.Personeelslid personeelslid in _personeelsleden)
+            {
+                <option value="@personeelslid.Id">@personeelslid.Naam</option>
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => _afwezigheidFormModel.Personeelslid)" />
+    </div>
+    <div class="form-group">
+        <label for="RedenAfwezigheid">Reden afwezigheid</label>
+        <InputSelect @bind-Value="_afwezigheidFormModel.RedenAfwezigheid" class="form-control" id="RedenAfwezigheid">
+            @foreach (Personeelsdienst.Models.Enums.RedenAfwezigheid redenAfwezigheid in Enum.GetValues(typeof(Personeelsdienst.Models.Enums.RedenAfwezigheid)))
+            {
+                <option value="@redenAfwezigheid">@redenAfwezigheid</option>
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => _afwezigheidFormModel.Personeelslid)" />
+    </div>
+    <div class="row">
+        <div class="form-group col-6">
+            <label for="BeginDatum">Begindatum</label>
+            <InputDate @bind-Value="_afwezigheidFormModel.BeginDatum" class="form-control" id="BeginDatum" />
+            <ValidationMessage For="@(() => _afwezigheidFormModel.BeginDatum)" />
+        </div>
+        <div class="form-group col-6">
+            <label for="EindDatum">Einddatum</label>
+            <InputDate @bind-Value="_afwezigheidFormModel.EindDatum" class="form-control" id="EindDatum" />
+            <ValidationMessage For="@(() => _afwezigheidFormModel.EindDatum)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Vervanger">Vervanger</label>
+        <InputText @bind-Value="_afwezigheidFormModel.Vervanger" class="form-control" id="Vervanger" />
+        <ValidationMessage For="@(() => _afwezigheidFormModel.Vervanger)" />
+    </div>
+    <button type="button" @onclick='(e => Navigation.NavigateTo("/Entiteit/Afwezigheid/Overzicht"))' class="btn btn-lg btn-outline-secondary pl-3 pr-3">Annuleer</button>
+    @if (_formInvalid)
+    {
+        <button style="float:right" type="submit" disabled class="btn btn-lg btn-primary pl-3 pr-3">Opslaan</button>
+    }
+    else
+    {
+        <button style="float:right" type="submit" class="btn btn-lg btn-primary pl-3 pr-3">Opslaan</button>
+    }
+</EditForm>

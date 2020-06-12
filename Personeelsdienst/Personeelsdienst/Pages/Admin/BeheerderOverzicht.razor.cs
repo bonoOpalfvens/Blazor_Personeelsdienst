@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Personeelsdienst.Models;
 using Personeelsdienst.Models.IRepositories;
+using Personeelsdienst.Shared;
 using System.Collections.Generic;
 
 namespace Personeelsdienst.Pages.Admin
@@ -22,20 +23,16 @@ namespace Personeelsdienst.Pages.Admin
         public IModalService Modal { get; set; }
         public IList<Beheerder> Beheerders => BeheerderRepository.GetAll();
 
-        protected void VerwijderBeheerder(MouseEventArgs e, long id)
+        protected async void VerwijderBeheerder(MouseEventArgs e, long id)
         {
-            /*
             var confirmModal = Modal.Show<ConfirmDelete>("Beheerder verwijderen");
-            var result = confirmModal.Result;
+            var result = await confirmModal.Result;
 
-            if (!result.Result.Cancelled)
+            if (!result.Cancelled)
             {
                 BeheerderRepository.Verwijder(id);
                 Navigation.NavigateTo("/Admin/Beheerder/Overzicht/Delete");
             }
-            */
-            BeheerderRepository.Verwijder(id);
-            Navigation.NavigateTo("/Admin/Beheerder/Overzicht/Delete");
         }
     }
 }

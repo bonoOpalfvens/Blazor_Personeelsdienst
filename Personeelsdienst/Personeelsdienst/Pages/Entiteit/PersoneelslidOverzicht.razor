@@ -4,7 +4,7 @@
 @inherits PersoneelslidOverzichtBase
 
 <div class="row">
-    <h3 class="col-lg-8"><span class="oi oi-briefcase" /> Overzicht Personeelsleden - @_entiteit.Entiteitsnaam</h3>
+    <h3 class="col-lg-8"><span class="oi oi-people" /> Overzicht Personeelsleden - @_entiteit.Entiteitsnaam</h3>
     <span class="col-lg-4">
         <button @onclick='(e => Navigation.NavigateTo("/Entiteit/Personeelslid/Toevoegen"))' style="color: white; float: right;" class="btn btn-primary"><span class="oi oi-person" /> Personeelslid toevoegen</button>
     </span>
@@ -37,7 +37,7 @@
                     <u>Status:</u> Afwezig
                 </div>
                 <div class="col-1 btn-group-vertical">
-                    <button @onclick="(e => VerwijderPersoneelslid(e, personeelslid.Id))" type="button" class="btn btn-outline-danger"><span class="oi oi-trash" /></button>
+                    <button @onclick="(e => VerwijderPersoneelslid(e, personeelslid.Id))" type="button" class="btn btn-outline-light"><span class="oi oi-trash" /></button>
                 </div>
             </div>
         </div>
