@@ -23,7 +23,7 @@ namespace Personeelsdienst.Data.Repositories
 
         public Personeelslid GetById(long id) => Personeelsleden.FirstOrDefault(p => p.Id.Equals(id));
         
-        public Personeelslid GetByEntiteit(long id) => Personeelsleden.Include(p => p.Entiteit).FirstOrDefault(p => p.Entiteit.Id.Equals(id));
+        public IList<Personeelslid> GetByEntiteit(long id) => Personeelsleden.Include(p => p.Entiteit).Where(p => p.Entiteit.Id.Equals(id)).ToList();
 
         public void SaveChanges() => _context.SaveChanges();
 

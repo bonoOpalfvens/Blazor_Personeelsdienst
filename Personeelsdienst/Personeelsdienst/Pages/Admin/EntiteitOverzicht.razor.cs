@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
-using Personeelsdienst.Models;
 using Personeelsdienst.Models.IRepositories;
 using System.Collections.Generic;
 
@@ -17,7 +16,7 @@ namespace Personeelsdienst.Pages.Admin
         protected UserManager<IdentityUser> UserManager { get; set; }
         [Inject]
         public NavigationManager Navigation { get; set; }
-        protected IList<Entiteit> Entiteiten => EntiteitRepository.GetAll();
+        protected IList<Models.Entiteit> Entiteiten => EntiteitRepository.GetAll();
 
         protected void VerwijderEntiteit(MouseEventArgs e, long id)
         {

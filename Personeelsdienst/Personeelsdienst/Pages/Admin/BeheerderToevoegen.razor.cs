@@ -21,7 +21,7 @@ namespace Personeelsdienst.Pages.Admin
         protected UserManager<IdentityUser> UserManager { get; set; }
         [Inject]
         protected NavigationManager Navigation { get; set; }
-        protected IList<Entiteit> Entiteiten;
+        protected IList<Models.Entiteit> Entiteiten;
 
         protected EditContext _editContext;
         protected BeheerderFormModel _beheerderFormModel;
@@ -71,11 +71,11 @@ namespace Personeelsdienst.Pages.Admin
         #endregion
 
         #region EventHandlers
-        protected void VoegEntiteitToe(MouseEventArgs e, Entiteit entiteit)
+        protected void VoegEntiteitToe(MouseEventArgs e, Models.Entiteit entiteit)
         {
             _beheerderFormModel.Entiteiten.First(e => e.Entiteit.Equals(entiteit)).BoolProperty = true;
         }
-        protected void VerwijderEntiteit(MouseEventArgs e, Entiteit entiteit)
+        protected void VerwijderEntiteit(MouseEventArgs e, Models.Entiteit entiteit)
         {
             _beheerderFormModel.Entiteiten.First(e => e.Entiteit.Equals(entiteit)).BoolProperty = false;
         }
@@ -91,14 +91,14 @@ namespace Personeelsdienst.Pages.Admin
             public string Password { get; set; }
             public List<EntiteitBool> Entiteiten { get; set; }
 
-            public BeheerderFormModel(List<Entiteit> entiteiten)
+            public BeheerderFormModel(List<Models.Entiteit> entiteiten)
             {
                 Entiteiten = entiteiten.Select(e => new EntiteitBool { Entiteit = e, BoolProperty = false }).ToList();
             }
 
             public class EntiteitBool
             {
-                public Entiteit Entiteit { get; set; }
+                public Models.Entiteit Entiteit { get; set; }
                 public bool BoolProperty { get; set; }
             }
         }

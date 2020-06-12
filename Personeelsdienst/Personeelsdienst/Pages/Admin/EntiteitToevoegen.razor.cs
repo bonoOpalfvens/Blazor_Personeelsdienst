@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Identity;
-using Personeelsdienst.Models;
 using Personeelsdienst.Models.IRepositories;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -36,7 +35,7 @@ namespace Personeelsdienst.Pages.Admin
             if (UserManager.Users.FirstOrDefault(u => u.Email.ToLower().Equals(_entiteitFormModel.Email)) is null)
             {
                 _userAlreadyExists = false;
-                Entiteit entiteit = new Entiteit(_entiteitFormModel.Entiteitsnaam, _entiteitFormModel.Email);
+                Models.Entiteit entiteit = new Models.Entiteit(_entiteitFormModel.Entiteitsnaam, _entiteitFormModel.Email);
                 EntiteitRepository.VoegToe(entiteit);
 
                 IdentityUser entiteitUser = new IdentityUser { UserName = entiteit.Email, Email = entiteit.Email };

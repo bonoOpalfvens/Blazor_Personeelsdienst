@@ -1,0 +1,16 @@
+﻿@page "/Entiteit/Personeelslid/Toevoegen"
+@attribute [Authorize(Roles = "entiteit")]
+@inherits PersoneelslidToevoegenBase
+
+<h3><span class="oi oi-person" /> Personeelslid toevoegen - @_entiteit.Entiteitsnaam</h3>
+<hr />
+<EditForm EditContext="_editContext" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label for="Naam">Naam</label>
+        <InputText @bind-Value="_personeelslidFormModel.Naam" class="form-control" id="Naam" />
+        <ValidationMessage For="@(() => _personeelslidFormModel.Naam)" />
+    </div>
+    <button type="button" @onclick='(e => Navigation.NavigateTo("/Entiteit/Personeelslid/Overzicht"))' class="btn btn-lg btn-outline-secondary pl-3 pr-3">Annuleer</button>
+    <button style="float:right" type="submit" class="btn btn-lg btn-primary pl-3 pr-3">Opslaan</button>
+</EditForm>
