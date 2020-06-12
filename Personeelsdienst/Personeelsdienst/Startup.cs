@@ -54,6 +54,8 @@ namespace Personeelsdienst
             services.AddScoped<DataInitialiser>();
             services.AddScoped<IEntiteitRepository, EntiteitRepository>();
             services.AddScoped<IBeheerderRepository, BeheerderRepository>();
+            services.AddScoped<IAfwezigheidRepository, AfwezigheidRepository>();
+            services.AddScoped<IPersoneelslidRepository, PersoneelslidRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataInitialiser dataInitialiser)
