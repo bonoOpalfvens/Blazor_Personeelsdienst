@@ -6,7 +6,7 @@ using Personeelsdienst.Models;
 using Personeelsdienst.Models.IRepositories;
 using System.ComponentModel.DataAnnotations;
 
-namespace Personeelsdienst.Pages.Entiteit
+namespace Personeelsdienst.Pages.EntiteitPages
 {
     public class PersoneelslidToevoegenBase : ComponentBase
     {

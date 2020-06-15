@@ -1,6 +1,7 @@
 ﻿using Personeelsdienst.Models.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Personeelsdienst.Models
 {
@@ -8,6 +9,7 @@ namespace Personeelsdienst.Models
     {
         #region Fields
         private string _vervanger;
+        private string _redenAfwezigheid;
         #endregion
 
         #region Properties

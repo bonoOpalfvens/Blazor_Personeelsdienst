@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace Personeelsdienst.Pages.Entiteit
+namespace Personeelsdienst.Pages.EntiteitPages
 {
     public class AfwezigheidToevoegenBase : ComponentBase
     {

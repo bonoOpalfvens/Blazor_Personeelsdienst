@@ -2,7 +2,7 @@
 
 <style>
     .nav-link {
-        font-size:0.9em !important;
+        font-size: 0.9em !important;
     }
 </style>
 
@@ -43,6 +43,18 @@
 
 @if (IsBeheerder())
 {
+    <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+        <ul class="nav flex-column">
+            @foreach (Personeelsdienst.Models.Entiteit entiteit in Beheerder().Entiteiten.Select(e => e.Entiteit).OrderBy(e => e.Entiteitsnaam))
+            {
+                <li class="nav-item px-3">
+                    <a class="nav-link" href="/Beheerder/Entiteit/@entiteit.Id">
+                        <span class="oi oi-briefcase" aria-hidden="true"></span> @entiteit.Entiteitsnaam
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
 }
 
 @if (IsEntiteit())

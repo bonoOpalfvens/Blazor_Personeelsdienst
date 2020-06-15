@@ -1,0 +1,41 @@
+﻿@page "/Beheerder/Entiteit/{id}/Afwezigheid/Bewerken/{id2}"
+@attribute [Authorize(Roles = "beheerder")]
+@inherits AfwezigheidBewerkenBase
+
+<h3><span class="oi oi-document" /> Afwezigheid bewerken - @_beheerder.Entiteiten.FirstOrDefault(e => e.EntiteitId.Equals(long.Parse(Id)))?.Entiteit.Entiteitsnaam</h3>
+<hr />
+<EditForm EditContext="_editContext">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label for="Personeelslid">Personeelslid</label>
+        <InputText readonly @bind-Value="_afwezigheid.Personeelslid.Naam" class="form-control" id="Personeelslid" />
+        <ValidationMessage For="@(() => _afwezigheid.Personeelslid)" />
+    </div>
+    <div class="form-group">
+        <label for="RedenAfwezigheid">Reden afwezigheid</label>
+        <input type="text" readonly value="@_afwezigheid.RedenAfwezigheid.ToString()" class="form-control" id="RedenAfwezigheid" />
+    </div>
+    <div class="row">
+        <div class="form-group col-6">
+            <label for="BeginDatum">Begindatum</label>
+            <InputDate readonly @bind-Value="_afwezigheid.BeginDatum" class="form-control" id="BeginDatum" />
+            <ValidationMessage For="@(() => _afwezigheid.BeginDatum)" />
+        </div>
+        <div class="form-group col-6">
+            <label for="EindDatum">Einddatum</label>
+            <InputDate readonly @bind-Value="_afwezigheid.EindDatum" class="form-control" id="EindDatum" />
+            <ValidationMessage For="@(() => _afwezigheid.EindDatum)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Vervanger">Vervanger</label>
+        <InputText readonly @bind-Value="_afwezigheid.Vervanger" class="form-control" id="Vervanger" />
+        <ValidationMessage For="@(() => _afwezigheid.Vervanger)" />
+    </div>
+    <button type="button" @onclick='(e => Navigation.NavigateTo($"/Beheerder/Entiteit/{Id}/Afwezigheid/Overzicht"))' class="btn btn-lg btn-outline-secondary pl-3 pr-3">Annuleer</button>
+    <button type="button" @onclick="VerwijderAfwezigheid" class="btn btn-lg btn-outline-danger pl-3 pr-3">Verwijder</button>
+    <span class="float-right">
+        <button type="button" @onclick="(e => VerwerkBewijs(false))" class="btn btn-lg btn-danger pl-3 pr-3"><span class="oi oi-ban" /> Weiger</button>
+        <button type="button" @onclick="(e => VerwerkBewijs(true))" class="btn btn-lg btn-success pl-3 pr-3"><span class="oi oi-check" /> Accepteer</button>
+    </span>
+</EditForm>

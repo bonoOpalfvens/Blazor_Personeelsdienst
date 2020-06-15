@@ -30,7 +30,7 @@ namespace Personeelsdienst.Data.Repositories
         public void Verwijder(long id)
         {
             Afwezigheid afwezigheid = _afwezigheden.FirstOrDefault(a => a.Id.Equals(id));
-            if(!(afwezigheid is null))
+            if (!(afwezigheid is null))
             {
                 _context.Afwezigheden.Remove(afwezigheid);
                 _context.SaveChanges();

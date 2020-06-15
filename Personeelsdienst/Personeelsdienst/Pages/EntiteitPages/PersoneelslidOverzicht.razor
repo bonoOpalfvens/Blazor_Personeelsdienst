@@ -1,0 +1,60 @@
+﻿@page "/Entiteit/Personeelslid/Overzicht"
+@page "/Entiteit/Personeelslid/Overzicht/{text}"
+@attribute [Authorize(Roles = "entiteit")]
+@inherits PersoneelslidOverzichtBase
+
+<div class="row">
+    <h3 class="col-lg-8"><span class="oi oi-people" /> Overzicht Personeelsleden - @_entiteit.Entiteitsnaam</h3>
+    <span class="col-lg-4">
+        <button @onclick='(e => Navigation.NavigateTo("/Entiteit/Personeelslid/Toevoegen"))' style="color: white; float: right;" class="btn btn-primary"><span class="oi oi-person" /> Personeelslid toevoegen</button>
+    </span>
+</div>
+@if (!(Text is null))
+{
+    if (Text.Trim().ToLower().Equals("create"))
+    {
+        <div class="alert alert-success">
+            Personeelslid succesvol aangemaakt.
+        </div>
+    }
+    else if (Text.Trim().ToLower().Equals("delete"))
+    {
+        <div class="alert alert-danger">
+            Personeelslid succesvol verwijderd.
+        </div>
+    }
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Personeelslid</th>
+            <th scope="col">Aanwezig</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Personeelsdienst.Models.Personeelslid personeelslid in Personeelsleden.OrderBy(p => p.IsAfwezig()).ThenBy(p => p.Naam))
+        {
+            if (personeelslid.IsAfwezig())
+            {
+                <tr class="table-danger">
+                    <th>@personeelslid.Naam</th>
+                    <td><span class="oi oi-ban" /></td>
+                    <td class="text-right">
+                        <button @onclick="(e => VerwijderPersoneelslid(e, personeelslid.Id))" type="button" class="btn btn-outline-danger"><span class="oi oi-trash" /></button>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <th>@personeelslid.Naam</th>
+                    <td><span class="oi oi-check" /></td>
+                    <td class="text-right">
+                        <button @onclick="(e => VerwijderPersoneelslid(e, personeelslid.Id))" type="button" class="btn btn-outline-danger"><span class="oi oi-trash" /></button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

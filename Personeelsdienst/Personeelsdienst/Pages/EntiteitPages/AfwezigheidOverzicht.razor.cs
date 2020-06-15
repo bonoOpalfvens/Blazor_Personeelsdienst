@@ -8,16 +8,16 @@ using Personeelsdienst.Models.IRepositories;
 using Personeelsdienst.Shared;
 using System.Collections.Generic;
 
-namespace Personeelsdienst.Pages.Entiteit
+namespace Personeelsdienst.Pages.EntiteitPages
 {
-    public class PersoneelslidOverzichtBase : ComponentBase
+    public class AfwezigheidOverzichtBase : ComponentBase
     {
         [Parameter]
         public string Text { get; set; }
         [Inject]
         protected IEntiteitRepository EntiteitRepository { get; set; }
         [Inject]
-        protected IPersoneelslidRepository PersoneelslidRepository { get; set; }
+        protected IAfwezigheidRepository AfwezigheidRepository { get; set; }
         [Inject]
         protected IHttpContextAccessor HttpContextAccessor { get; set; }
         [Inject]
@@ -26,25 +26,24 @@ namespace Personeelsdienst.Pages.Entiteit
         public IModalService Modal { get; set; }
         [Inject]
         protected NavigationManager Navigation { get; set; }
-        protected IList<Personeelslid> Personeelsleden { get; set; }
+        protected IList<Afwezigheid> Afwezigheden { get; set; }
         protected Models.Entiteit _entiteit;
 
         protected override void OnInitialized()
         {
             base.OnInitialized();
             _entiteit = EntiteitRepository.GetByEmail(UserManager.GetUserName(HttpContextAccessor.HttpContext.User));
-            Personeelsleden = PersoneelslidRepository.GetByEntiteit(_entiteit.Id);
+            Afwezigheden = AfwezigheidRepository.GetByEntiteit(_entiteit.Id);
         }
-
-        protected async void VerwijderPersoneelslid(MouseEventArgs e, long id)
+        protected async void VerwijderAfwezigheid(MouseEventArgs e, long id)
         {
             var confirmModal = Modal.Show<ConfirmDelete>("Afwezigheid verwijderen");
             var result = await confirmModal.Result;
 
             if (!result.Cancelled)
             {
-                PersoneelslidRepository.Verwijder(id);
-                Navigation.NavigateTo("/Entiteit/Personeelslid/Overzicht/Delete");
+                AfwezigheidRepository.Verwijder(id);
+                Navigation.NavigateTo("/Entiteit/Afwezigheid/Overzicht/Delete");
             }
         }
     }

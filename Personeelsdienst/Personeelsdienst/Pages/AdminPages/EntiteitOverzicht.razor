@@ -25,18 +25,24 @@
         </div>
     }
 }
-<hr />
-@foreach (Personeelsdienst.Models.Entiteit entiteit in Entiteiten)
-{
-    <div class="card m-2">
-        <div class="card-body row">
-            <div class="col-11">
-                <h5>@entiteit.Entiteitsnaam</h5>
-                <u>login:</u> @entiteit.Email
-            </div>
-            <div class="col-1 btn-group-vertical" style="height: 50px;">
-                <button @onclick="(e => VerwijderEntiteit(e, entiteit.Id))" type="button" class="btn btn-outline-danger"><span class="oi oi-trash" /></button>
-            </div>
-        </div>
-    </div>
-}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Entiteitsnaam</th>
+            <th scope="col">Login</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Personeelsdienst.Models.Entiteit entiteit in Entiteiten)
+        {
+            <tr>
+                <th>@entiteit.Entiteitsnaam</th>
+                <td>@entiteit.Email</td>
+                <td class="text-right">
+                    <button @onclick="(e => VerwijderEntiteit(e, entiteit.Id))" type="button" class="btn btn-outline-danger"><span class="oi oi-trash" /></button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

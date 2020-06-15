@@ -30,25 +30,30 @@
         </div>
     }
 }
-
-<hr />
-@foreach (Personeelsdienst.Models.Beheerder beheerder in Beheerders)
-{
-    <div class="card m-2">
-        <div class="card-body row">
-            <div class="col-11">
-                <h5>@beheerder.Email</h5>
-                <ul>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Login</th>
+            <th scope="col">Entiteiten</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Personeelsdienst.Models.Beheerder beheerder in Beheerders)
+        {
+            <tr>
+                <th>@beheerder.Email</th>
+                <td>
                     @foreach (Personeelsdienst.Models.Entiteit entiteit in beheerder.Entiteiten.Select(e => e.Entiteit))
                     {
-                        <li>@entiteit.Entiteitsnaam</li>
+                        @entiteit.Entiteitsnaam <br />
                     }
-                </ul>
-            </div>
-            <div class="col-1 btn-group-vertical" style="height: 50px;">
-                <button @onclick='(e => Navigation.NavigateTo($"/Admin/Beheerder/Bewerken/{beheerder.Id}"))' type="button" class="btn btn-outline-secondary"><span class="oi oi-pencil" /></button>
-                <button @onclick='(e => VerwijderBeheerder(e, beheerder.Id))' type="button" class="btn btn-outline-danger"><span class="oi oi-trash" /></button>
-            </div>
-        </div>
-    </div>
-}
+                </td>
+                <td class="text-right">
+                    <button @onclick='(e => Navigation.NavigateTo($"/Admin/Beheerder/Bewerken/{beheerder.Id}"))' type="button" class="btn btn-outline-secondary"><span class="oi oi-pencil" /></button>
+                    <button @onclick='(e => VerwijderBeheerder(e, beheerder.Id))' type="button" class="btn btn-outline-danger"><span class="oi oi-trash" /></button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

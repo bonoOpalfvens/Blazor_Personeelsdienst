@@ -1,0 +1,87 @@
+﻿@page "/Beheerder"
+@page "/Beheerder/Entiteit/{id}"
+@page "/Beheerder/Entiteit/{id}/Afwezigheid/Overzicht"
+@page "/Beheerder/Entiteit/{id}/Afwezigheid/Overzicht/{text}"
+@attribute [Authorize(Roles = "beheerder")]
+@inherits AfwezigheidOverzichtBase
+
+    <style>
+        tbody > tr:hover {
+            cursor: pointer;
+        }
+    </style>
+
+    <div class="row">
+        <h3 class="col-lg-8"><span class="oi oi-document" /> Overzicht Afwezigheden - @_entiteit.Entiteitsnaam</h3>
+        <span class="col-lg-4">
+            <button @onclick='(e => Navigation.NavigateTo($"/Beheerder/Entiteit/{_id}/Personeelslid/Overzicht"))' style="color: white; float: right;" class="btn btn-primary"><span class="oi oi-people" /> Personeelsleden</button>
+        </span>
+    </div>
+    @if (!(Text is null))
+    {
+        if (Text.Trim().ToLower().Equals("edit"))
+        {
+            <div class="alert alert-success">
+                Afwezigheid succesvol verwerkt.
+            </div>
+        }
+        else if (Text.Trim().ToLower().Equals("delete"))
+        {
+            <div class="alert alert-danger">
+                Afwezigheid succesvol verwijderd.
+            </div>
+        }
+    }
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Personeelslid</th>
+                <th scope="col">Startdatum</th>
+                <th scope="col">Einddatum</th>
+                <th scope="col">Reden</th>
+                <th scope="col">Verwerkt</th>
+                <th scope="col">Bewijs OK</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Personeelsdienst.Models.Afwezigheid afwezigheid in Afwezigheden().OrderByDescending(a => a.BeginDatum).ThenBy(a => a.Verwerkt).ThenBy(a => a.BewijsOk))
+            {
+                if (afwezigheid.Verwerkt)
+                {
+                    if (afwezigheid.BewijsOk)
+                    {
+                        <tr class="table-success" @onclick='(e => Navigation.NavigateTo($"/Beheerder/Entiteit/{Id}/Afwezigheid/Bewerken/{afwezigheid.Id}"))'>
+                            <th>@afwezigheid.Personeelslid.Naam</th>
+                            <td>@afwezigheid.BeginDatum.ToShortDateString()</td>
+                            <td>@afwezigheid.EindDatum?.ToShortDateString()</td>
+                            <td>@afwezigheid.RedenAfwezigheid.ToString()</td>
+                            <td><span class="oi oi-check" /></td>
+                            <td><span class="oi oi-check" /></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr class="table-danger" @onclick='(e => Navigation.NavigateTo($"/Beheerder/Entiteit/{Id}/Afwezigheid/Bewerken/{afwezigheid.Id}"))'>
+                            <th>@afwezigheid.Personeelslid.Naam</th>
+                            <td>@afwezigheid.BeginDatum.ToShortDateString()</td>
+                            <td>@afwezigheid.EindDatum?.ToShortDateString()</td>
+                            <td>@afwezigheid.RedenAfwezigheid.ToString()</td>
+                            <td><span class="oi oi-check" /></td>
+                            <td><span class="oi oi-ban" /></td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr @onclick='(e => Navigation.NavigateTo($"/Beheerder/Entiteit/{Id}/Afwezigheid/Bewerken/{afwezigheid.Id}"))'>
+                        <th>@afwezigheid.Personeelslid.Naam</th>
+                        <td>@afwezigheid.BeginDatum.ToShortDateString()</td>
+                        <td>@afwezigheid.EindDatum?.ToShortDateString()</td>
+                        <td>@afwezigheid.RedenAfwezigheid.ToString()</td>
+                        <td><span class="oi oi-ban" /></td>
+                        <td><span class="oi oi-ban" /></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>

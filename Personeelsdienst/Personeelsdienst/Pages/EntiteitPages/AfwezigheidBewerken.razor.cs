@@ -11,7 +11,7 @@ using Personeelsdienst.Shared;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Personeelsdienst.Pages.Entiteit
+namespace Personeelsdienst.Pages.EntiteitPages
 {
     public class AfwezigheidBewerkenBase : ComponentBase
     {
@@ -41,7 +41,6 @@ namespace Personeelsdienst.Pages.Entiteit
             base.OnInitialized();
             _entiteit = EntiteitRepository.GetByEmail(UserManager.GetUserName(HttpContextAccessor.HttpContext.User));
             _afwezigheid = AfwezigheidRepository.GetById(long.Parse(Id));
-            if (_afwezigheid is null) Navigation.NavigateTo("/Error");
 
             _afwezigheidFormModel = new AfwezigheidFormModel(_afwezigheid);
             _editContext = new EditContext(_afwezigheidFormModel);

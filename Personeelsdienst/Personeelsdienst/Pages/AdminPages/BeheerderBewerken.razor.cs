@@ -9,7 +9,7 @@ using Personeelsdienst.Shared;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Personeelsdienst.Pages.Admin
+namespace Personeelsdienst.Pages.AdminPages
 {
     public class BeheerderBewerkenBase : ComponentBase
     {

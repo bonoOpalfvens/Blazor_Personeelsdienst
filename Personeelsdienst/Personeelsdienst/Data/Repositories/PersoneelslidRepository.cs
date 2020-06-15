@@ -22,7 +22,7 @@ namespace Personeelsdienst.Data.Repositories
         public IList<Personeelslid> GetAll() => Personeelsleden.ToList();
 
         public Personeelslid GetById(long id) => Personeelsleden.FirstOrDefault(p => p.Id.Equals(id));
-        
+
         public IList<Personeelslid> GetByEntiteit(long id) => Personeelsleden.Include(p => p.Entiteit).Where(p => p.Entiteit.Id.Equals(id)).ToList();
 
         public void SaveChanges() => _context.SaveChanges();
@@ -30,7 +30,7 @@ namespace Personeelsdienst.Data.Repositories
         public void Verwijder(long id)
         {
             Personeelslid personeelslid = _personeelsleden.FirstOrDefault(p => p.Id.Equals(id));
-            if(!(personeelslid is null))
+            if (!(personeelslid is null))
             {
                 _context.Personeelsleden.Remove(personeelslid);
                 _context.SaveChanges();

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Claims;
 
-namespace Personeelsdienst.Pages.Admin
+namespace Personeelsdienst.Pages.AdminPages
 {
     public class EntiteitToevoegenBase : ComponentBase
     {

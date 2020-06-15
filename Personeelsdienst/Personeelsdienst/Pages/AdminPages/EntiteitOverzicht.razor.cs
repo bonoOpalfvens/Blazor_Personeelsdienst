@@ -6,7 +6,7 @@ using Personeelsdienst.Models.IRepositories;
 using Personeelsdienst.Shared;
 using System.Collections.Generic;
 
-namespace Personeelsdienst.Pages.Admin
+namespace Personeelsdienst.Pages.AdminPages
 {
     public class EntiteitOverzichtBase : ComponentBase
     {
